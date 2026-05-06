@@ -1,0 +1,276 @@
+#!hexa strict
+// hexa-cosmos/cli/hexa-cosmos.hexa — standalone hexa-cosmos CLI router (placeholder)
+//
+// 3-pillar Cosmos substrate (HEXA family) router:
+//   cosmology    — cosmology spec (n=6 ΛCDM closed-form comparison)   [SPEC]
+//   particle     — particle-cosmology spec                             [SPEC]
+//   observatory  — cosmic-observatory spec                             [SPEC]
+//
+// Plus utility subcmds:
+//   status       — pillar status table (0/3 wired, 3/3 spec)
+//   selftest     — verify all 3 pillar markdown files load
+//   help         — this help
+//   --version    — print version
+//
+// Root resolution: $HEXA_COSMOS_ROOT env, else inferred from $0 dirname.
+//
+// Constraints:
+//   raw#9   — hexa-only orchestration; numerical wiring TBD
+//   raw#15  — write-confined (audit log only)
+//   raw#10  — n=6 ΛCDM comparison is candidate, not measurement
+//
+// Cost: $0 (Mac local; pure spec router; no Python deps).
+//
+// @no-lock-needed
+// @resolver-bypass(reason="Pure local CLI router; pillars are markdown specs.")
+
+let VERSION = "1.0.0"
+
+// ─── env / path resolve ───
+
+let HOME = env("HOME")
+let HEXA_COSMOS_ROOT_ENV = env("HEXA_COSMOS_ROOT")
+
+fn hexa_cosmos_root() -> str {
+    if HEXA_COSMOS_ROOT_ENV.len() > 0 { return HEXA_COSMOS_ROOT_ENV }
+    let inferred = exec("dirname \"$(dirname \"$0\")\" 2>/dev/null || true").trim()
+    if inferred.len() > 0 { return inferred }
+    return HOME + "/.hexa-cosmos"  // @allow-devpath
+}
+
+let HC = hexa_cosmos_root()
+
+let MOD_COSMOLOGY   = HC + "/cosmology/cosmology.md"
+let MOD_PARTICLE    = HC + "/particle/cosmology-particle.md"
+let MOD_OBSERVATORY = HC + "/observatory/cosmic-observatory.md"
+
+let LOG_PATH = HC + "/state/hexa_cosmos_cli.log"
+
+// ─── arg helpers ───
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn has_flag(a: [str], flag: str) -> bool {
+    for x in a {
+        if x == flag { return true }
+    }
+    return false
+}
+
+fn json_mode(a: [str]) -> bool {
+    return has_flag(a, "--json")
+}
+
+// ─── audit log (jsonl) ───
+
+fn _ts_now() -> str {
+    return exec("date -u '+%Y-%m-%dT%H:%M:%SZ'").trim()
+}
+
+fn _audit(subcmd: str, args_str: str, exit_code: int) {
+    let line = "{\"ts\":\"" + _ts_now() + "\",\"caller\":\"hexa_cosmos_standalone\",\"subcmd\":\"hexa-cosmos " +
+               subcmd + "\",\"args\":\"" + args_str.replace("\"", "\\\"") +
+               "\",\"exit_code\":" + str(exit_code) + ",\"version\":\"" + VERSION + "\"}"
+    exec("mkdir -p " + shq(HC + "/state") + " 2>/dev/null")
+    exec("echo " + shq(line) + " >> " + shq(LOG_PATH) + " 2>/dev/null")
+}
+
+// ─── module file check ───
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+// ─── caveat printer (raw#10 honest C3) ───
+
+fn _print_caveats() {
+    println("")
+    println("--- caveats (raw#10 C3) ---")
+    println("  1. 0/3 pillars empirically wired. All 3 ship as theoretical spec only.")
+    println("  2. n=6 ΛCDM (LambdaCDM) closed-form comparison is a CANDIDATE, not a")
+    println("     measurement. See docs/lambda_cdm_vs_n6.md for the parameter table.")
+    println("  3. n=6 invariant lattice (σ=12, τ=4, φ=2, J₂=24) is verified via")
+    println("     OEIS sequence cross-derivation only (A000203/A000005/A001414).")
+    println("  4. Numerical pipelines (CMB, BBN, N-body, telescope) are out of scope")
+    println("     for v1.0.0 — empirical wiring deferred to post-v1.0 cycles.")
+    println("  5. Cross-link: need-singularity/hexa-space (observation-side ops),")
+    println("     need-singularity/hexa-millennium (math substrate cousin).")
+}
+
+// ─── subcommand: status ───
+
+fn cmd_status(a: [str]) {
+    if json_mode(a) {
+        let mut js = "{\"hexa_cosmos\":\"" + VERSION + "\",\"subcmd\":\"status\","
+        js = js + "\"pillars_total\":3,\"pillars_wired\":0,\"pillars_spec\":3,"
+        js = js + "\"verdict\":\"SPEC_ONLY\","
+        js = js + "\"pillars\":[\"cosmology:spec\",\"particle:spec\",\"observatory:spec\"],"
+        js = js + "\"n6_lambda_cdm\":\"candidate_not_measurement\""
+        js = js + "}"
+        println(js)
+        return
+    }
+
+    println("hexa-cosmos " + VERSION + " status — 3-pillar Cosmos substrate (HEXA family)")
+    println("")
+    println("  pillar        status              n=6 ΛCDM mapping         empirical sandbox")
+    println("  ------------- ------------------- ------------------------ --------------------------")
+    println("  cosmology     SPEC v1.0.0         candidate closed-form    deferred (post-v1.0)")
+    println("  particle      SPEC v1.0.0         candidate closed-form    deferred (post-v1.0)")
+    println("  observatory   SPEC v1.0.0         candidate closed-form    deferred (post-v1.0)")
+    println("")
+    println("  verdict: SPEC_ONLY (0/3 pillars wired; 3/3 ship as theoretical spec)")
+    println("")
+    println("  to drill into a pillar:")
+    println("    hexa-cosmos cosmology    (print pillar spec path)")
+    println("    hexa-cosmos particle     (print pillar spec path)")
+    println("    hexa-cosmos observatory  (print pillar spec path)")
+    println("    hexa-cosmos selftest     (3-pillar markdown presence sweep)")
+    _print_caveats()
+}
+
+// ─── pillar subcommands (placeholder: print spec path) ───
+
+fn _pillar_run(name: str, path: str, a: [str]) {
+    if _file_exists(path) {
+        println("[hexa-cosmos/" + name + "] spec path: " + path)
+        println("[hexa-cosmos/" + name + "] status: SPEC v1.0.0 (numerical wiring TBD)")
+        println("__HEXA_COSMOS_" + name.to_upper() + "__ PASS")
+    } else {
+        eprintln("[hexa-cosmos/" + name + "] ERROR: spec missing: " + path)
+        eprintln("  hint: set HEXA_COSMOS_ROOT or run from repo root")
+    }
+    if json_mode(a) {
+        let pass = if _file_exists(path) { "true" } else { "false" }
+        println("{\"hexa_cosmos\":\"" + VERSION + "\",\"subcmd\":\"" + name + "\",\"pass\":" + pass + ",\"status\":\"spec\"}")
+    }
+    _audit(name, "", 0)
+}
+
+fn cmd_cosmology(a: [str])   { _pillar_run("cosmology",   MOD_COSMOLOGY,   a) }
+fn cmd_particle(a: [str])    { _pillar_run("particle",    MOD_PARTICLE,    a) }
+fn cmd_observatory(a: [str]) { _pillar_run("observatory", MOD_OBSERVATORY, a) }
+
+// ─── subcommand: selftest ───
+
+fn cmd_selftest(a: [str]) {
+    let c1 = _file_exists(MOD_COSMOLOGY)
+    let c2 = _file_exists(MOD_PARTICLE)
+    let c3 = _file_exists(MOD_OBSERVATORY)
+    let pass_overall = c1 && c2 && c3
+    println("hexa-cosmos selftest — 3-pillar spec sweep")
+    println("  cosmology   : " + (if c1 { "PASS" } else { "FAIL" }))
+    println("  particle    : " + (if c2 { "PASS" } else { "FAIL" }))
+    println("  observatory : " + (if c3 { "PASS" } else { "FAIL" }))
+    if pass_overall {
+        println("__HEXA_COSMOS_SELFTEST__ PASS")
+    } else {
+        println("__HEXA_COSMOS_SELFTEST__ FAIL")
+    }
+    if json_mode(a) {
+        println("{\"hexa_cosmos\":\"" + VERSION + "\",\"subcmd\":\"selftest\",\"verdict\":\"" + (if pass_overall { "PASS" } else { "FAIL" }) + "\"}")
+    }
+    _print_caveats()
+    _audit("selftest", "", if pass_overall { 0 } else { 1 })
+    if pass_overall == false { exit(1) }
+}
+
+// ─── version ───
+
+fn cmd_version() {
+    println("hexa-cosmos " + VERSION)
+    println("standalone Cosmos substrate (HEXA family — extracted from n6-architecture@c0f1f570 2026-05-06)")
+    println("license: MIT")
+    println("repo:    https://github.com/need-singularity/hexa-cosmos")
+}
+
+// ─── help ───
+
+fn cmd_help() {
+    println("hexa-cosmos " + VERSION + " — standalone Cosmos substrate CLI (placeholder)")
+    println("")
+    println("usage: hexa-cosmos <subcmd> [flags...]")
+    println("")
+    println("pillar subcommands (HEXA family — n=6 invariant lattice):")
+    println("  cosmology       cosmology spec (ΛCDM 6-param closed-form candidate)  [SPEC]")
+    println("  particle        particle-cosmology spec                              [SPEC]")
+    println("  observatory     cosmic-observatory spec                              [SPEC]")
+    println("")
+    println("utility subcommands:")
+    println("  status          0/3-wired pillar table + verdict + caveats")
+    println("  selftest        full 3-pillar markdown presence sweep")
+    println("")
+    println("global flags:")
+    println("  --version       show version")
+    println("  --json          machine-parseable JSON tail")
+    println("  --help, -h      this help")
+    println("")
+    println("env:")
+    println("  HEXA_COSMOS_ROOT       override repo root (default: inferred from $0)")
+    println("")
+    println("cost estimate (Mac local): $0 — all subcmds run as spec routers.")
+    println("                            numerical wiring TBD (post-v1.0).")
+    println("")
+    println("backend modules: " + HC)
+}
+
+// ─── main ───
+
+fn main() {
+    let _raw = args()
+    let mut _sidx = -1
+    let mut _i = 0
+    while _i < _raw.len() {
+        if _raw[_i].ends_with(".hexa") { _sidx = _i; break }
+        _i = _i + 1
+    }
+    let mut _user_start = 2
+    if _sidx >= 0 { _user_start = _sidx + 1 }
+
+    let mut a: [str] = ["hexa_cosmos_cli", "hexa_cosmos_router"]
+    let mut _ua = _user_start
+    while _ua < _raw.len() {
+        a = a + [_raw[_ua]]
+        _ua = _ua + 1
+    }
+    let n = len(a)
+
+    if n < 3 {
+        cmd_help()
+        return
+    }
+
+    let sub = a[2]
+
+    if sub == "--version" || sub == "-V" || sub == "version" {
+        cmd_version()
+        return
+    }
+
+    if has_flag(a, "--help") || has_flag(a, "-h") {
+        cmd_help()
+        return
+    }
+
+    if sub == "help" { cmd_help(); return }
+
+    if sub == "status" {
+        cmd_status(a)
+    } else if sub == "cosmology" {
+        cmd_cosmology(a)
+    } else if sub == "particle" {
+        cmd_particle(a)
+    } else if sub == "observatory" {
+        cmd_observatory(a)
+    } else if sub == "selftest" {
+        cmd_selftest(a)
+    } else {
+        eprintln("hexa-cosmos: unknown subcommand '" + sub + "'")
+        eprintln("run 'hexa-cosmos help' for usage")
+        _audit(sub, "", 2)
+        exit(2)
+    }
+}
