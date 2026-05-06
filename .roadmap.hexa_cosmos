@@ -1,0 +1,106 @@
+# .roadmap.hexa_cosmos — repo-overall tracker
+
+> Cross-cutting state: invariant lattice, release cadence, cycle history,
+> deadlines, pointers. Sister substrate of `hexa-bio` / `hexa-rtsc` /
+> `hexa-millennium` under `need-singularity` org.
+
+**Last sync**: 2026-05-06 · **Current release**: v1.0.0 · **Branch**: `main`
+
+---
+
+## §0 Terminal goal — ΛCDM 6 parameter n=6 closed-form fit (±0.5%)
+
+hexa-cosmos 도착지 = **ΛCDM 6 parameter (Ω_b, Ω_m, Ω_Λ, H₀, n_s, σ_8) 모두
+n=6 closed-form 후보 fit (현재 ±5% level → ±0.5% level 도달)**.
+
+DoD (Definition of Done):
+
+1. cosmology + particle-cosmology + cosmic-observatory 3-pillar 모두 wired.
+2. Planck 2018 data 비교 자동 pipeline.
+3. 6 parameter 각각 n=6 closed-form 후보 fit, ±0.5% target 도달.
+4. JWST / Roman 데이터 cross-verify (early-universe vs late-universe tension
+   resolution).
+
+n=6 invariant lattice (§A.1) 는 도착지의 *correctness machinery* — closed-form
+parameter 정합성 보장 도구. measurement 자체는 외부 (Planck / JWST / Roman / ...).
+
+## §A.1 Invariant lattice (n=6)
+
+```
+σ(6) · φ(6) = n · τ(6) = J₂ = 24
+   12   ·   2  =  6  ·   4  = 24
+```
+
+| Symbol | Value | Role | Cosmos projection |
+|--------|-------|------|-------------------|
+| σ(6)   | 12    | sigma — cardinality bin | 12 multipole-bin scale (CMB ℓ-binning anchor) |
+| τ(6)   | 4     | tau — state quartet | 4 epoch: inflation · radiation · matter · Λ-dominated |
+| φ(6)   | 2     | phi — verdict bit | early-universe vs late-universe (H₀ tension binary) |
+| J₂     | 24    | Mathieu / Leech symmetry | M₂₄ · O ⊂ I octahedral 후보 on parameter manifold |
+
+## §A.2 Release cadence
+
+| Version | Date            | Status       | Highlights |
+|---------|-----------------|--------------|------------|
+| v1.0.0  | 2026-05-06      | RELEASED     | 3-pillar wired (cosmology / particle / observatory) + ΛCDM 비교 표 |
+| v1.1.0  | _planned 2026-08_ | TARGET     | Planck 2018 data 자동 download + n=6 fit script .hexa |
+| v1.2.0  | _planned 2026-10_ | TARGET     | H₀ tension (early vs late, 67 vs 73 km/s/Mpc) n=6 후보 분석 |
+| v1.3.0  | _planned 2026-12_ | TARGET     | cosmological-particle CMB B-mode 후보 closed-form |
+| v2.0.0  | _planned 2027-Q2_ | ASPIRATIONAL | JWST / Roman 데이터 cross-verify + ±0.5% fit 도달 |
+
+## §A.3 Cycle history
+
+- **cycle 1 (2026-05-06)**: v1.0.0 RELEASED — 3-pillar (cosmology +
+  particle + observatory) wired, ΛCDM 6-parameter 비교 표 land.
+
+## §A.4 Falsifier preregister
+
+| ID          | Statement                                                                                                  | Status     |
+|-------------|------------------------------------------------------------------------------------------------------------|------------|
+| F-COSMOS-1  | H₀ = σ + φ/ε 후보 closed-form, 측정 ±0.5% 일치? (Planck early ~67.4 vs SH0ES late ~73.0 — tension 해소?)    | OPEN — v1.2.0 H₀ tension 분석의 핵심 |
+| F-COSMOS-2  | Λ = (n=6 closed-form) ≈ 1.1×10⁻⁵² m⁻² 측정 fit? (cosmological constant problem 의 candidate explanation) | OPEN — v1.1.0 Planck fit script 후 활성 |
+| F-COSMOS-3  | σ_8 mass fluctuation amplitude 0.811 (Planck) n=6 fit?                                                     | OPEN — v1.1.0 fit script 후 활성 |
+| F-COSMOS-4  | n_s scalar spectral index 0.965 (Planck) n=6 후보 fit + inflation slow-roll 정합?                            | OPEN — v1.3.0 B-mode 후보 동시 검증 |
+
+**Witness schema convention** (sister `hexa-bio` §A.8 alias-registry 동형):
+
+| Falsifier   | Witness schema (planned)               | Cycle |
+|-------------|-----------------------------------------|-------|
+| F-COSMOS-1  | `raw_77_h0_tension_n6_v1`               | 3     |
+| F-COSMOS-2  | `raw_77_lambda_n6_fit_v1`               | 2     |
+| F-COSMOS-3  | `raw_77_sigma8_n6_fit_v1`               | 2     |
+| F-COSMOS-4  | `raw_77_ns_bmode_n6_v1`                 | 4     |
+
+## §A.5 Pending decisions
+
+- **[UNDEFINED] H₀ tension resolution stance** — early-universe (Planck)
+  vs late-universe (SH0ES Cepheid) 둘 중 어느 쪽이 systematic 인지, 또는
+  새 physics (early dark energy / N_eff shift / ...) candidate 중 n=6
+  projection 우선순위 미정.
+- **[UNDEFINED] Planck 2018 data download SLA** — 자동 pipeline 의 데이터
+  refresh 주기 (월 1회 / release-driven / on-demand) 미정.
+- **[UNDEFINED] JWST / Roman cross-verify cadence** — JWST 는 ongoing,
+  Roman 은 2027 launch 예정 — v2.0.0 cross-verify 시점 (2027-Q2) 의
+  Roman data 사용 가능성 미정 (launch 지연 시 fallback 필요).
+- **[UNDEFINED] cosmological constant problem 의 candidate scope** — 60~120
+  orders of magnitude discrepancy (QFT vacuum energy vs observed Λ) 의
+  candidate explanation 이 n=6 closed-form 의 적용 범위 안인지, anthropic
+  + multiverse 영역으로 escalate 인지 boundary 미정.
+
+---
+
+## §B POINTERS
+
+- Sister substrates: `~/core/hexa-bio` · `~/core/hexa-rtsc` ·
+  `~/core/hexa-millennium`
+- 3-pillar subdirs: `cosmology/` · `particle/` · `observatory/`
+- Release notes: `RELEASE_NOTES_v1.0.0.md`
+- Changelog: `CHANGELOG.md`
+
+## §C Cross-cutting Require
+
+- **(R1)** `~/core/n6-architecture/` canonical SSOT 수정 금지 — symlink 소스, repo 는 consumer
+- **(R2)** External measurement data (Planck / JWST / Roman / SH0ES) 는 read-only consumer — repo 가 데이터 갱신 주체 아님
+- **(R3)** Witness = raw 108 schema → registry append-only (sister hexa-bio 패턴)
+- **(R4)** ±5% → ±0.5% 정확도 progression — claim wording 엄격 (현재-fit-level 명시)
+- **(R5)** H₀ tension 등 active 논쟁은 stance neutrality 유지 (n=6 candidate = 어느 한 쪽 손 들지 않고 양 측 모두 fit-or-falsify 시도)
