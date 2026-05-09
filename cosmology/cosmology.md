@@ -1,4 +1,4 @@
-<!-- @canonical: n6-architecture@0570a835:domains/physics/cosmology/cosmology.md -->
+<!-- @canonical: canon@d1640e62:domains/physics/cosmology/cosmology.md -->
 <!-- @extracted: 2026-05-06 -->
 <!-- @md5_at_extraction: 05cb991ea44f0aa98758b5d83ecf1409 -->
 <!-- gold-standard: shared/harness/sample.md -->

@@ -99,7 +99,7 @@ parameter 정합성 보장 도구. measurement 자체는 외부 (Planck / JWST /
 
 ## §C Cross-cutting Require
 
-- **(R1)** `~/core/n6-architecture/` canonical SSOT 수정 금지 — symlink 소스, repo 는 consumer
+- **(R1)** `~/core/canon/` canonical SSOT 수정 금지 — symlink 소스, repo 는 consumer
 - **(R2)** External measurement data (Planck / JWST / Roman / SH0ES) 는 read-only consumer — repo 가 데이터 갱신 주체 아님
 - **(R3)** Witness = raw 108 schema → registry append-only (sister hexa-bio 패턴)
 - **(R4)** ±5% → ±0.5% 정확도 progression — claim wording 엄격 (현재-fit-level 명시)

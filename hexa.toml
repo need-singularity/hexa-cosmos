@@ -2,7 +2,7 @@
 #
 # Spec: shared/hexa-lang/hexa-toml-spec.json (version 1.0.0)
 # Distribution target: hx install hexa-cosmos
-# Provenance: extracted 2026-05-06 from n6-architecture@c0f1f570
+# Provenance: extracted 2026-05-06 from canon@c0f1f570
 #             (domains/physics/{cosmology,cosmology-particle,cosmic-observatory})
 
 [package]
@@ -59,7 +59,7 @@ pillars_total = 3
 pillars_wired = 0
 pillars_spec = 3
 verdict = "SPEC_ONLY"
-extracted_from = "n6-architecture@c0f1f570 (2026-05-06)"
+extracted_from = "canon@c0f1f570 (2026-05-06)"
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]

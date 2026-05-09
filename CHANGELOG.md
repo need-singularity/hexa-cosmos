@@ -6,11 +6,11 @@ All notable changes to **hexa-cosmos** are documented here. Format follows
 ## [1.0.0] - 2026-05-06
 
 ### Added
-- Initial standalone extraction from `n6-architecture@c0f1f570`.
+- Initial standalone extraction from `canon@c0f1f570`.
 - 3-pillar architecture:
-  - `cosmology/`    ← `n6-architecture/domains/physics/cosmology/`
-  - `particle/`     ← `n6-architecture/domains/physics/cosmology-particle/`
-  - `observatory/`  ← `n6-architecture/domains/physics/cosmic-observatory/`
+  - `cosmology/`    ← `canon/domains/physics/cosmology/`
+  - `particle/`     ← `canon/domains/physics/cosmology-particle/`
+  - `observatory/`  ← `canon/domains/physics/cosmic-observatory/`
 - `hexa.toml` package manifest (MIT, name `hexa-cosmos`).
 - `install.hexa` `hx` build hook (sister-borrowed from hexa-bio).
 - `cli/hexa-cosmos.hexa` placeholder CLI router (subcmd dispatch landed;

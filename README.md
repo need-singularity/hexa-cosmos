@@ -56,7 +56,7 @@ n=6 invariant lattice가 ΛCDM와 만나는 지점 — **n_s = 27/28 = (n/φ)³/
 
 ## §Verbs — 3-pillar architecture
 
-| pillar       | source (`n6-architecture@c0f1f570`)               | status         |
+| pillar       | source (`canon@c0f1f570`)               | status         |
 |--------------|---------------------------------------------------|----------------|
 | `cosmology`  | `domains/physics/cosmology/`                      | SPEC v1.0.0    |
 | `particle`   | `domains/physics/cosmology-particle/`             | SPEC v1.0.0    |
@@ -162,13 +162,13 @@ Sister substrates (each independent, MIT/Apache-2.0 standalone):
 
 ### Provenance
 
-Extracted 2026-05-06 from `n6-architecture@c0f1f570`:
+Extracted 2026-05-06 from `canon@c0f1f570`:
 
 - `cosmology/`    ← `domains/physics/cosmology/`
 - `particle/`     ← `domains/physics/cosmology-particle/`
 - `observatory/`  ← `domains/physics/cosmic-observatory/`
 
-The originating spec lives at `n6-architecture@c0f1f570` (read-only); this
+The originating spec lives at `canon@c0f1f570` (read-only); this
 repo is a thin standalone wrapper that exposes the 3 pillars + a placeholder
 `.hexa` CLI router + the ΛCDM-vs-n=6 candidate comparison table.
 

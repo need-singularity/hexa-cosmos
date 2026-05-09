@@ -2,7 +2,7 @@
 
 > **Status**: CANDIDATE COMPARISON, NOT A MEASUREMENT.
 > The mappings below are theoretical-derivation candidates extracted from
-> `n6-architecture@c0f1f570/domains/physics/cosmology/cosmology.md` §X
+> `canon@c0f1f570/domains/physics/cosmology/cosmology.md` §X
 > ("BLOWUP — cosmology breakthrough-draft"). They are not fits to data;
 > the side-by-side table is presented to expose the **claim surface** so it
 > can be falsified (see Falsifiers below).
@@ -41,7 +41,7 @@ coincidence is the launching observation for the n=6 substrate claim.
 > **Note**: parameters 1, 3, 4, 6 ship as **placeholders** for the candidate
 > closed-form; parameter 5 (n_s = 27/28) is the headline tightest match in
 > the n=6 substrate (existing PHYS-CMB-spectral-index claim, reused from
-> `n6-architecture/.../cosmology.md` §X.1 breakthrough-draft 2). Parameter
+> `canon/.../cosmology.md` §X.1 breakthrough-draft 2). Parameter
 > 2 (Ω_c·h²) and the derived Ω_m / Ω_Λ split are documented below.
 
 ## Derived ΛCDM observables (candidate closed-forms)
@@ -87,7 +87,7 @@ The candidate claim collapses if any of the following hold:
 
 ## Provenance
 
-- Extracted 2026-05-06 from `n6-architecture@c0f1f570`:
+- Extracted 2026-05-06 from `canon@c0f1f570`:
   - `domains/physics/cosmology/cosmology.md` §X (breakthrough-draft + falsifiers)
   - `domains/physics/cosmology-particle/cosmology-particle.md`
   - `domains/physics/cosmic-observatory/cosmic-observatory.md`

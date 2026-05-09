@@ -2,7 +2,7 @@
 
 **Release date**: 2026-05-06
 **Closure verdict**: **SPEC_ONLY** (0/3 pillars wired; 3/3 ship as theoretical spec)
-**Provenance**: extracted 2026-05-06 from `n6-architecture@c0f1f570`
+**Provenance**: extracted 2026-05-06 from `canon@c0f1f570`
 (domains/physics/{cosmology, cosmology-particle, cosmic-observatory}).
 Sister extraction of `hexa-bio` v1.0.0 (2026-05-04, registry L24).
 
@@ -16,7 +16,7 @@ measurement.
 
 - **3-pillar architecture** — COSMOLOGY (cosmology spec), PARTICLE
   (particle-cosmology spec), OBSERVATORY (cosmic-observatory spec). All 3
-  inherited verbatim (read-only) from `n6-architecture/domains/physics/`.
+  inherited verbatim (read-only) from `canon/domains/physics/`.
 - **n=6 ΛCDM closed-form candidate** — `n=6` matches the count of
   independent ΛCDM parameters {Ω_b·h², Ω_c·h², 100θ_MC, τ_reion, n_s,
   ln(10¹⁰A_s)}. Closed-form mappings (e.g. Ω_m = φ/n = 1/3, Ω_Λ = (σ-τ)/σ
@@ -67,7 +67,7 @@ hexa-cosmos observatory      # SPEC — print spec path
    sequence cross-derivation only (A000203/A000005/A001414). Application
    to ΛCDM 6-parameter set is hypothesized, not demonstrated.
 4. **No proprietary calibration.** All theoretical content lives in
-   markdown specs imported verbatim from `n6-architecture@c0f1f570`.
+   markdown specs imported verbatim from `canon@c0f1f570`.
 5. **Cross-link cousins**: `need-singularity/hexa-space` (aerospace +
    astronomy + astrobiology, observation-side ops) and
    `need-singularity/hexa-millennium` (math substrate cousin).
