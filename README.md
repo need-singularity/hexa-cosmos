@@ -8,6 +8,7 @@
 > spec at v1.0.0; the n=6 ΛCDM 6-parameter mapping is a **candidate**, not
 > a measurement.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20102602.svg)](https://doi.org/10.5281/zenodo.20102602)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
 [![Pillars: 0/3 wired](https://img.shields.io/badge/pillars-0%2F3_wired_(spec_only)-orange.svg)](#3-pillar-status-table)
