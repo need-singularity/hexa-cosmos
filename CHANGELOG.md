@@ -28,6 +28,6 @@ All notable changes to **hexa-cosmos** are documented here. Format follows
 - Numerical pipelines (CMB, BBN, N-body, telescope) deferred post-v1.0.
 
 ### Cross-links
-- need-singularity/hexa-space (observation-side ops sister)
-- need-singularity/hexa-millennium (math substrate cousin)
-- need-singularity/hexa-bio (sister extraction template)
+- dancinlab/hexa-space (observation-side ops sister)
+- dancinlab/hexa-millennium (math substrate cousin)
+- dancinlab/hexa-bio (sister extraction template)

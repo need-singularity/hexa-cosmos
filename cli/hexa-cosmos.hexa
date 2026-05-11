@@ -96,8 +96,8 @@ fn _print_caveats() {
     println("     OEIS sequence cross-derivation only (A000203/A000005/A001414).")
     println("  4. Numerical pipelines (CMB, BBN, N-body, telescope) are out of scope")
     println("     for v1.0.0 — empirical wiring deferred to post-v1.0 cycles.")
-    println("  5. Cross-link: need-singularity/hexa-space (observation-side ops),")
-    println("     need-singularity/hexa-millennium (math substrate cousin).")
+    println("  5. Cross-link: dancinlab/hexa-space (observation-side ops),")
+    println("     dancinlab/hexa-millennium (math substrate cousin).")
 }
 
 // ─── subcommand: status ───
@@ -184,7 +184,7 @@ fn cmd_version() {
     println("hexa-cosmos " + VERSION)
     println("standalone Cosmos substrate (HEXA family — extracted from canon@c0f1f570 2026-05-06)")
     println("license: MIT")
-    println("repo:    https://github.com/need-singularity/hexa-cosmos")
+    println("repo:    https://github.com/dancinlab/hexa-cosmos")
 }
 
 // ─── help ───

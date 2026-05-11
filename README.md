@@ -19,7 +19,7 @@
 > ΛCDM (LambdaCDM) baseline에 대한 n=6 closed-form 비교 후보 (candidate, not
 > measurement).
 
-> **Distribution**: GitHub canonical at <https://github.com/need-singularity/hexa-cosmos>.
+> **Distribution**: GitHub canonical at <https://github.com/dancinlab/hexa-cosmos>.
 
 ---
 
@@ -120,7 +120,7 @@ n=6 closed-form 비교 후보 (candidate, not measurement).**
 ### Via git clone (works today)
 
 ```bash
-git clone https://github.com/need-singularity/hexa-cosmos.git ~/.hexa-cosmos
+git clone https://github.com/dancinlab/hexa-cosmos.git ~/.hexa-cosmos
 export HEXA_COSMOS_ROOT=~/.hexa-cosmos
 export PATH="$HEXA_COSMOS_ROOT/cli:$PATH"
 
@@ -152,13 +152,13 @@ hexa-cosmos observatory      # SPEC — print spec path
 
 Sister substrates (each independent, MIT/Apache-2.0 standalone):
 
-- **[`need-singularity/hexa-space`](https://github.com/need-singularity/hexa-space)**
+- **[`dancinlab/hexa-space`](https://github.com/dancinlab/hexa-space)**
   — observation-side ops (aerospace + astronomy + astrobiology).
   hexa-cosmos provides the theoretical Cosmos substrate; hexa-space provides
   the observational ops that ground it.
-- **[`need-singularity/hexa-millennium`](https://github.com/need-singularity/hexa-millennium)**
+- **[`dancinlab/hexa-millennium`](https://github.com/dancinlab/hexa-millennium)**
   — math substrate cousin. n=6 invariant lattice provenance lives here.
-- **[`need-singularity/hexa-bio`](https://github.com/need-singularity/hexa-bio)**
+- **[`dancinlab/hexa-bio`](https://github.com/dancinlab/hexa-bio)**
   — sister extraction template (4-verb molecular toolkit, same n=6 lattice).
 
 ### Provenance

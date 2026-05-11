@@ -33,13 +33,13 @@ measurement.
   (sentinel-only PASS does **not** validate empirical claims).
 - **MIT license** — pure-text spec + placeholder CLI; no runtime deps.
 - **GitHub-only distribution** — canonical at
-  <https://github.com/need-singularity/hexa-cosmos>.
+  <https://github.com/dancinlab/hexa-cosmos>.
 
 ## Installation
 
 ```bash
 # Via git clone (works today):
-git clone https://github.com/need-singularity/hexa-cosmos.git ~/.hexa-cosmos
+git clone https://github.com/dancinlab/hexa-cosmos.git ~/.hexa-cosmos
 export HEXA_COSMOS_ROOT=~/.hexa-cosmos
 export PATH="$HEXA_COSMOS_ROOT/cli:$PATH"
 hexa run $HEXA_COSMOS_ROOT/cli/hexa-cosmos.hexa selftest
@@ -68,13 +68,13 @@ hexa-cosmos observatory      # SPEC — print spec path
    to ΛCDM 6-parameter set is hypothesized, not demonstrated.
 4. **No proprietary calibration.** All theoretical content lives in
    markdown specs imported verbatim from `canon@c0f1f570`.
-5. **Cross-link cousins**: `need-singularity/hexa-space` (aerospace +
+5. **Cross-link cousins**: `dancinlab/hexa-space` (aerospace +
    astronomy + astrobiology, observation-side ops) and
-   `need-singularity/hexa-millennium` (math substrate cousin).
+   `dancinlab/hexa-millennium` (math substrate cousin).
 
 ## Distribution (GitHub canonical)
 
-- canonical: <https://github.com/need-singularity/hexa-cosmos>
+- canonical: <https://github.com/dancinlab/hexa-cosmos>
 
 ## License
 

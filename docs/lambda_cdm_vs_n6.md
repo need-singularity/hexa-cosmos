@@ -93,5 +93,5 @@ The candidate claim collapses if any of the following hold:
   - `domains/physics/cosmic-observatory/cosmic-observatory.md`
 - OEIS cross-references: A000203 (σ), A000005 (τ), A000010 (φ_E),
   A001414 (sopfr).
-- Sister substrate: `need-singularity/hexa-bio` (4-verb molecular toolkit,
+- Sister substrate: `dancinlab/hexa-bio` (4-verb molecular toolkit,
   same n=6 lattice, sister extraction template).

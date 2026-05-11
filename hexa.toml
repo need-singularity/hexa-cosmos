@@ -12,8 +12,8 @@ entry = "cli/hexa-cosmos.hexa"
 description = "Cosmos substrate (HEXA family) — cosmology + particle-cosmology + cosmic observatory. n=6 LambdaCDM (ΛCDM) closed-form comparison candidate. 3-pillar architecture; .hexa CLI is a placeholder router (TBD wiring); n=6 invariant lattice (σ=12, τ=4, φ=2, J₂=24)."
 license = "MIT"
 authors = ["박민우 <nerve011235@gmail.com>"]
-repository = "https://github.com/need-singularity/hexa-cosmos"
-homepage = "https://github.com/need-singularity/hexa-cosmos"
+repository = "https://github.com/dancinlab/hexa-cosmos"
+homepage = "https://github.com/dancinlab/hexa-cosmos"
 readme = "README.md"
 keywords = ["cosmology", "lambda-cdm", "particle-cosmology", "cosmic-observatory", "hexa-family", "n6-invariant"]
 categories = ["cosmology", "astrophysics", "particle-physics"]
