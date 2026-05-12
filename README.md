@@ -115,7 +115,7 @@ n=6 closed-form 비교 후보 (candidate, not measurement).**
 
 ---
 
-## §Install
+## Install
 
 ```bash
 # 1. Install hexa-lang (ships `hexa` + `hx` package manager)
@@ -127,7 +127,7 @@ hx install hexa-cosmos          # global, pulls latest from registry
 
 ---
 
-## §Run
+## Run
 
 ```bash
 hexa-cosmos cosmology           # cosmology spec (ΛCDM 6-param closed-form candidate)  [SPEC]
