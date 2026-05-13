@@ -54,12 +54,22 @@ hexa-lang = ">=1.0.0"
 # v1.0.0 closure: 0/3 pillars empirically wired. All 3 ship as theoretical
 # specs + candidate closed-form ΛCDM comparison. .hexa CLI is a placeholder
 # router (subcmd dispatch landed; numerical impls TBD).
+# Wave N (2026-05-13): SPEC_FIRST closure (9/9 spec-presence; 4/4 verify PASS).
 [closure]
 pillars_total = 3
 pillars_wired = 0
 pillars_spec = 3
-verdict = "SPEC_ONLY"
+specs_total = 9          # 3 CLI pillars + 6 nav specs (holography / calabi-yau-nav /
+                         # m-theory-11d / meta-closure-nav / multiverse-nav / simulation-theory)
+specs_present = 9        # 9/9 markdown files on disk (verify/spec_presence.hexa PASS)
+verify_scripts = 4       # spec_presence · lattice_arithmetic · real_limits_anchor · closure_consistency
+verify_passing = 4       # 4/4 PASS (verify/run_all.hexa exit 0)
+verdict = "SPEC_FIRST"   # SPEC_FIRST — cosmology specs are NOT measurements made by this repo.
+                         # H₀ / σ₈ / Ω_Λ / Ω_m use observational Λ-CDM values from
+                         # Planck/DESI/SH0ES/JWST/Vera Rubin/Euclid/SPT/Roman.
+                         # Hubble tension and σ₈ tension remain UNRESOLVED.
 extracted_from = "canon@c0f1f570 (2026-05-06)"
+wave = "N (2026-05-13)"
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]

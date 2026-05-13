@@ -1,0 +1,88 @@
+#!hexa strict
+// hexa-cosmos/verify/spec_presence.hexa — 9-spec doc presence verifier.
+//
+// Closure anchor #1 for hexa-cosmos (spec-first substrate):
+// each of the 9 spec docs declared in hexa.toml [closure] must resolve to
+// a real markdown at <subdir>/<filename>. This is the *honest* closure
+// check for a spec-first repo — file presence, not behavioural promise.
+//
+// Verb shape:
+//   • 3 CLI pillars   — cosmology / particle / observatory   (canonical pillars)
+//   • 6 nav specs     — holography / calabi-yau-nav / m-theory-11d /
+//                       meta-closure-nav / multiverse-nav / simulation-theory
+//
+// Per LATTICE_POLICY §1.3: spec-presence is real engineering verification
+// (files exist on disk); not a lattice tautology.
+
+let HOME = env("HOME")
+let HEXA_COSMOS_ROOT_ENV = env("HEXA_COSMOS_ROOT")
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn _resolve_root() -> str {
+    if HEXA_COSMOS_ROOT_ENV.len() > 0 { return HEXA_COSMOS_ROOT_ENV }
+    let oldpwd = env("OLDPWD")
+    if oldpwd.len() > 0 {
+        let t = exec("[ -f " + shq(oldpwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return oldpwd }
+    }
+    let pwd = env("PWD")
+    if pwd.len() > 0 {
+        let t = exec("[ -f " + shq(pwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return pwd }
+    }
+    return HOME + "/core/hexa-cosmos"
+}
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+// 9-spec registry — must match cli/hexa-cosmos.hexa pillars + 6 nav specs.
+let SPECS = [
+    ["cosmology",         "cosmology/cosmology.md"],
+    ["particle",          "particle/cosmology-particle.md"],
+    ["observatory",       "observatory/cosmic-observatory.md"],
+    ["holography",        "holography/holography.md"],
+    ["calabi-yau-nav",    "calabi-yau-nav/calabi-yau-nav.md"],
+    ["m-theory-11d",      "m-theory-11d/m-theory-11d.md"],
+    ["meta-closure-nav",  "meta-closure-nav/meta-closure-nav.md"],
+    ["multiverse-nav",    "multiverse-nav/multiverse-nav.md"],
+    ["simulation-theory", "simulation-theory/simulation-theory.md"],
+]
+
+fn main() {
+    let root = _resolve_root()
+    println("hexa-cosmos/verify/spec_presence — 9-spec doc presence (3 pillars + 6 nav)")
+    println("  root: " + root)
+    println("")
+    let mut ok = 0
+    let mut bad = 0
+    for row in SPECS {
+        let name = row[0]
+        let rel = row[1]
+        let abs_p = root + "/" + rel
+        if _file_exists(abs_p) {
+            println("  [PASS] " + name + " -> " + rel)
+            ok = ok + 1
+        } else {
+            println("  [FAIL] " + name + " -> " + rel + " MISSING (abs: " + abs_p + ")")
+            bad = bad + 1
+        }
+    }
+    println("")
+    println("  spec docs present: " + str(ok) + " / 9")
+    println("")
+    println("  honesty (SPEC_FIRST verdict, raw#10 C3):")
+    println("    cosmology specs are NOT measurements made by this repo.")
+    println("    H₀ / σ₈ / Ω_Λ / Ω_m values are observational (Planck/DESI/SH0ES).")
+    println("    n=6 ΛCDM closed-form mapping is a CANDIDATE, not measurement.")
+    if bad > 0 {
+        println("__HEXA_COSMOS_SPEC_PRESENCE__ FAIL")
+        exit(1)
+    }
+    println("__HEXA_COSMOS_SPEC_PRESENCE__ PASS")
+}

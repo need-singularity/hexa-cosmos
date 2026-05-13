@@ -1,0 +1,196 @@
+#!hexa strict
+// hexa-cosmos/verify/closure_consistency.hexa — scoreboard cross-check.
+//
+// Confirms three sources agree on the closure shape:
+//   1. cli/hexa-cosmos.hexa pillar verbs (cosmology/particle/observatory)
+//   2. hexa.toml [closure] pillars_total / pillars_spec / specs_total
+//   3. README.md badge "pillars-3" + "specs-9_spec"
+//
+// Per LATTICE_POLICY §1.3 rule 4: this is *internal* self-consistency
+// (own substrate's own scoreboard), NOT a claim about external entities
+// (Planck collab, DESI, JWST, SH0ES, Vera Rubin, Euclid, SPT, Roman).
+
+let HOME = env("HOME")
+let HEXA_COSMOS_ROOT_ENV = env("HEXA_COSMOS_ROOT")
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn _resolve_root() -> str {
+    if HEXA_COSMOS_ROOT_ENV.len() > 0 { return HEXA_COSMOS_ROOT_ENV }
+    let oldpwd = env("OLDPWD")
+    if oldpwd.len() > 0 {
+        let t = exec("[ -f " + shq(oldpwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return oldpwd }
+    }
+    let pwd = env("PWD")
+    if pwd.len() > 0 {
+        let t = exec("[ -f " + shq(pwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return pwd }
+    }
+    return HOME + "/core/hexa-cosmos"
+}
+
+fn _count_pillar_cmds(root: str) -> int {
+    let cli = root + "/cli/hexa-cosmos.hexa"
+    // Count the 3 _pillar_run dispatch lines: cmd_cosmology / cmd_particle / cmd_observatory
+    let raw = exec("grep -cE '^fn cmd_(cosmology|particle|observatory)\\(' " + shq(cli)).trim()
+    if raw.len() == 0 { return -1 }
+    return int(raw)
+}
+
+fn _toml_int(root: str, key: str) -> int {
+    let toml = root + "/hexa.toml"
+    // Strip inline comments before extracting digits.
+    let cmd = "awk -F'=' '/^" + key + " *=/ {val=$2; sub(/#.*/,\"\",val); gsub(/[^0-9]/,\"\",val); print val; exit}' " + shq(toml)
+    let raw = exec(cmd).trim()
+    if raw.len() == 0 { return -1 }
+    return int(raw)
+}
+
+fn _toml_value(root: str, key: str) -> str {
+    let toml = root + "/hexa.toml"
+    // Strip inline comments and quotes before returning value.
+    let cmd = "awk -F'=' '/^" + key + " *=/ {sub(/^[^=]*= */,\"\"); sub(/#.*/,\"\"); gsub(/\"/,\"\"); gsub(/^ +| +$/,\"\"); print; exit}' " + shq(toml)
+    return exec(cmd).trim()
+}
+
+fn _readme_badge_count(root: str, pat: str) -> int {
+    let readme = root + "/README.md"
+    let cmd = "grep -oE '" + pat + "' " + shq(readme) + " | head -1 | grep -oE '[0-9]+'"
+    let raw = exec(cmd).trim()
+    if raw.len() == 0 { return -1 }
+    return int(raw)
+}
+
+fn _file_contains(p: str, needle: str) -> bool {
+    let cmd = "grep -F " + shq(needle) + " " + shq(p) + " >/dev/null 2>&1 && echo yes || echo no"
+    return exec(cmd).trim() == "yes"
+}
+
+fn main() {
+    let root = _resolve_root()
+    println("hexa-cosmos/verify/closure_consistency — scoreboard cross-check")
+    println("  root: " + root)
+    println("")
+
+    let mut ok = 0
+    let mut bad = 0
+
+    let cli_n = _count_pillar_cmds(root)
+    let toml_total = _toml_int(root, "pillars_total")
+    let toml_spec = _toml_int(root, "pillars_spec")
+    let toml_specs_total = _toml_int(root, "specs_total")
+    let readme_pillars = _readme_badge_count(root, "pillars-[0-9]+")
+    let readme_specs = _readme_badge_count(root, "specs-[0-9]+_spec")
+    let verdict = _toml_value(root, "verdict")
+
+    println("  cli/hexa-cosmos.hexa cmd_<pillar> fns: " + str(cli_n))
+    println("  hexa.toml pillars_total:                " + str(toml_total))
+    println("  hexa.toml pillars_spec:                 " + str(toml_spec))
+    println("  hexa.toml specs_total:                  " + str(toml_specs_total))
+    println("  hexa.toml verdict:                      " + verdict)
+    println("  README badge pillars-N:                 " + str(readme_pillars))
+    println("  README badge specs-N_spec:              " + str(readme_specs))
+    println("")
+
+    if cli_n == 3 {
+        println("  [PASS] CLI has 3 pillar cmd functions")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] CLI has " + str(cli_n) + " pillar cmd functions (expected 3)")
+        bad = bad + 1
+    }
+    if toml_total == 3 {
+        println("  [PASS] hexa.toml pillars_total = 3")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] hexa.toml pillars_total = " + str(toml_total))
+        bad = bad + 1
+    }
+    if toml_spec == 3 {
+        println("  [PASS] hexa.toml pillars_spec = 3")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] hexa.toml pillars_spec = " + str(toml_spec))
+        bad = bad + 1
+    }
+    if toml_specs_total == 9 {
+        println("  [PASS] hexa.toml specs_total = 9")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] hexa.toml specs_total = " + str(toml_specs_total))
+        bad = bad + 1
+    }
+    if verdict == "SPEC_FIRST" || verdict == "SPEC_ONLY" {
+        println("  [PASS] verdict honest (SPEC_FIRST/SPEC_ONLY — no measurement claim)")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] verdict = '" + verdict + "' (expected SPEC_FIRST or SPEC_ONLY)")
+        bad = bad + 1
+    }
+    if readme_pillars == 3 {
+        println("  [PASS] README badge pillars-3")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] README badge pillars-" + str(readme_pillars) + " (expected 3)")
+        bad = bad + 1
+    }
+    if readme_specs == 9 {
+        println("  [PASS] README badge specs-9_spec")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] README badge specs-" + str(readme_specs) + "_spec (expected 9)")
+        bad = bad + 1
+    }
+
+    // Standard policy artifacts must be present.
+    let must = ["LATTICE_POLICY.md", "LIMIT_BREAKTHROUGH.md", "AGENTS.md", "hexa.toml", "README.md", "LICENSE", "CITATION.cff"]
+    for f in must {
+        let abs_f = root + "/" + f
+        let cmd = "[ -f " + shq(abs_f) + " ] && echo y || echo n"
+        if exec(cmd).trim() == "y" {
+            println("  [PASS] standard artifact: " + f)
+            ok = ok + 1
+        } else {
+            println("  [FAIL] standard artifact missing: " + f)
+            bad = bad + 1
+        }
+    }
+
+    // AGENTS.md must register LATTICE_POLICY + LIMIT_BREAKTHROUGH.
+    let agents = root + "/AGENTS.md"
+    if _file_contains(agents, "LATTICE_POLICY.md") {
+        println("  [PASS] AGENTS.md registers LATTICE_POLICY.md")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] AGENTS.md does not register LATTICE_POLICY.md")
+        bad = bad + 1
+    }
+    if _file_contains(agents, "LIMIT_BREAKTHROUGH.md") {
+        println("  [PASS] AGENTS.md registers LIMIT_BREAKTHROUGH.md")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] AGENTS.md does not register LIMIT_BREAKTHROUGH.md")
+        bad = bad + 1
+    }
+
+    // README must mention §Verify section.
+    let readme = root + "/README.md"
+    if _file_contains(readme, "Verify") {
+        println("  [PASS] README has Verify section")
+        ok = ok + 1
+    } else {
+        println("  [FAIL] README missing Verify section")
+        bad = bad + 1
+    }
+
+    println("")
+    println("  passed: " + str(ok) + "  failed: " + str(bad))
+    if bad > 0 {
+        println("__HEXA_COSMOS_CLOSURE_CONSISTENCY__ FAIL")
+        exit(1)
+    }
+    println("__HEXA_COSMOS_CLOSURE_CONSISTENCY__ PASS")
+}

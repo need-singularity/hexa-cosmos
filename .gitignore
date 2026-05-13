@@ -1,0 +1,20 @@
+# hexa-cosmos — gitignore
+# Runtime caches / append-only ledgers
+**/state/*.log
+**/state/*.jsonl
+**/state/runs/
+**/state/cache/
+**/state/markers/
+state/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Local env
+.env
+.env.local
+
+# .claude harness scratch
+.claude/

@@ -11,8 +11,11 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20102602.svg)](https://doi.org/10.5281/zenodo.20102602)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
-[![Pillars: 0/3 wired](https://img.shields.io/badge/pillars-0%2F3_wired_(spec_only)-orange.svg)](#3-pillar-status-table)
-[![n=6 lattice](https://img.shields.io/badge/n%3D6-σ%3D12_τ%3D4_φ%3D2_J₂%3D24-purple.svg)](#n6-invariant-lattice)
+[![pillars-3](https://img.shields.io/badge/pillars-3_spec-orange.svg)](#run)
+[![specs-9_spec](https://img.shields.io/badge/specs-9_spec-blue.svg)](#verify)
+[![verify-4%2F4](https://img.shields.io/badge/verify-4%2F4_PASS-brightgreen.svg)](#verify)
+[![closure-SPEC__FIRST](https://img.shields.io/badge/closure-SPEC__FIRST-brightgreen.svg)](#verify)
+[![n=6 lattice](https://img.shields.io/badge/n%3D6-σ%3D12_τ%3D4_φ%3D2_J₂%3D24-purple.svg)](LATTICE_POLICY.md)
 [![ΛCDM](https://img.shields.io/badge/ΛCDM-6_param_candidate-blue.svg)](docs/lambda_cdm_vs_n6.md)
 
 > **Status (2026-05-06)**: 이론 + 후보 spec. 작동 `.hexa` CLI TBD.
@@ -133,6 +136,48 @@ Extracted 2026-05-06 from `canon@c0f1f570`:
 The originating spec lives at `canon@c0f1f570` (read-only); this
 repo is a thin standalone wrapper that exposes the 3 pillars + a placeholder
 `.hexa` CLI router + the ΛCDM-vs-n=6 candidate comparison table.
+
+---
+
+## Verify
+
+`hexa-cosmos` ships a 4-script SPEC_FIRST verify suite (Wave N, 2026-05-13).
+All scripts live under `verify/` and aggregate via `run_all.hexa`:
+
+```bash
+# Run the full sweep (4/4 scripts, exit 0 = all PASS)
+hexa run verify/run_all.hexa
+
+# Or run individual checks
+hexa run verify/spec_presence.hexa        # 9 spec docs on disk (3 pillars + 6 nav)
+hexa run verify/lattice_arithmetic.hexa   # n=6 self-consistency (aux only)
+hexa run verify/real_limits_anchor.hexa   # LIMIT_BREAKTHROUGH.md anchors (Planck/DESI/SH0ES)
+hexa run verify/closure_consistency.hexa  # scoreboard cross-check (CLI · toml · README · AGENTS)
+```
+
+**Closure shape (SPEC_FIRST)**:
+
+| Component        | Count | Status                                                          |
+| ---------------- | ----- | --------------------------------------------------------------- |
+| CLI pillars      | 3     | cosmology · particle · observatory                              |
+| Nav specs        | 6     | holography · calabi-yau-nav · m-theory-11d · meta-closure-nav · multiverse-nav · simulation-theory |
+| Spec docs total  | 9     | 9/9 markdown files present                                      |
+| Verify scripts   | 4     | 4/4 PASS                                                        |
+| Verdict          | —     | **SPEC_FIRST** (no measurement claim)                           |
+
+**SPEC_FIRST verdict — honest red preserved**: cosmology specs are NOT
+measurements made by this repo. H₀ tension (SH0ES vs Planck), σ₈ tension,
+and dark matter/energy fractions use observational Λ-CDM values from
+Planck 2018 / DESI 2024 / SH0ES / JWST / Vera Rubin / Euclid / SPT / Roman
+— **NOT lattice-derived**. The n=6 ΛCDM 6-parameter mapping is a
+**candidate closed-form comparison**, not a measurement. Hubble tension
+and σ₈ tension remain **UNRESOLVED** open observational problems.
+
+Per [`LATTICE_POLICY.md`](LATTICE_POLICY.md) §1.2: cosmological observables
+are anchored against Planck/DESI/SH0ES/COBE-FIRAS published values + NIST
+CODATA 2022 constants, never against the n=6 lattice. See
+[`LIMIT_BREAKTHROUGH.md`](LIMIT_BREAKTHROUGH.md) for the per-limit
+HARD_WALL / SOFT_WALL / BREAKABLE assessment (L1–L12).
 
 ---
 
