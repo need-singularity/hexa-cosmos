@@ -55,7 +55,6 @@ hexa-cosmos particle         # SPEC — print spec path
 hexa-cosmos observatory      # SPEC — print spec path
 ```
 
-## Honest C3 caveats (raw#10)
 
 1. **0/3 pillars empirically wired.** All 3 ship as theoretical spec only.
    The `.hexa` CLI is a placeholder router; numerical wiring (CMB pipeline,

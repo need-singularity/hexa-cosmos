@@ -21,7 +21,6 @@ All notable changes to **hexa-cosmos** are documented here. Format follows
 - `LICENSE` MIT.
 - `RELEASE_NOTES_v1.0.0.md`.
 
-### Honest C3 caveats (raw#10)
 - 0/3 pillars empirically wired. All 3 ship as theoretical spec only.
 - n=6 ΛCDM closed-form comparison is a **candidate**, not a measurement.
 - n=6 invariant lattice verified via OEIS cross-derivation only.

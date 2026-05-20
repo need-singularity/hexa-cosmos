@@ -76,7 +76,6 @@ fn main() {
     println("")
     println("  spec docs present: " + str(ok) + " / 9")
     println("")
-    println("  honesty (SPEC_FIRST verdict, raw#10 C3):")
     println("    cosmology specs are NOT measurements made by this repo.")
     println("    H₀ / σ₈ / Ω_Λ / Ω_m values are observational (Planck/DESI/SH0ES).")
     println("    n=6 ΛCDM closed-form mapping is a CANDIDATE, not measurement.")

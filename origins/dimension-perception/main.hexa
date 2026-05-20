@@ -11,7 +11,6 @@
 //   - bci/hexa_sense.hexa   sensor channel definitions (HEXA SSOT)
 //
 // Invocation: `hexa run bridge/origins/dimension-perception/main.hexa`
-// emits the asset manifest used by the registry sync (own#7).
 
 fn manifest() {
     println("origin: dimension-perception")

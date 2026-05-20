@@ -11,7 +11,6 @@
 // the canonical cosmology HARD walls (L1–L12) so any agent has a pointer
 // from verify→audit.
 //
-// Honesty (raw#10 C3): no cosmological observable in this script is
 // derived from the n=6 lattice. Each value is sourced from Planck 2018
 // (Planck Collab. A&A 641 A6 2020), DESI 2024 (arXiv:2404.03002), SH0ES
 // (Riess ApJL 934 L7 2022), COBE/FIRAS (Fixsen ApJ 707 916 2009), BICEP/Keck
@@ -103,7 +102,6 @@ fn main() {
     }
 
     // 3. Honesty caveats: open observational tensions and untestable claims
-    //    must remain flagged as UNRESOLVED (raw#10 C3 + LATTICE_POLICY §3.3).
     let unresolved = [
         ["Hubble tension (H₀ 67 vs 73)",            "Hubble tension"],
         ["Dark-energy w(z) (DESI 2024)",            "Dark-energy equation of state"],

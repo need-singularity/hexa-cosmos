@@ -15,9 +15,6 @@
 // Root resolution: $HEXA_COSMOS_ROOT env, else inferred from $0 dirname.
 //
 // Constraints:
-//   raw#9   — hexa-only orchestration; numerical wiring TBD
-//   raw#15  — write-confined (audit log only)
-//   raw#10  — n=6 ΛCDM comparison is candidate, not measurement
 //
 // Cost: $0 (Mac local; pure spec router; no Python deps).
 //
@@ -84,11 +81,9 @@ fn _file_exists(p: str) -> bool {
     return r == "yes"
 }
 
-// ─── caveat printer (raw#10 honest C3) ───
 
 fn _print_caveats() {
     println("")
-    println("--- caveats (raw#10 C3) ---")
     println("  1. 0/3 pillars empirically wired. All 3 ship as theoretical spec only.")
     println("  2. n=6 ΛCDM (LambdaCDM) closed-form comparison is a CANDIDATE, not a")
     println("     measurement. See docs/lambda_cdm_vs_n6.md for the parameter table.")

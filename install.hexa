@@ -10,14 +10,11 @@
 //   HX_PKG_NAME    — "hexa-cosmos"
 //   HX_HOOK_PHASE  — "pre" | "post" | "both" (default: "both")
 //
-// Responsibilities (each idempotent, raw#9 STRICT — pure-hexa default):
 //   1. Pre-install: no Python deps required for v1.0.0 spec-only closure.
 //      (Future numerical wiring will gate on HEXA_COSMOS_WITH_NUMPY=1.)
 //   2. Post-install: run `hexa-cosmos selftest` via the freshly-staged
 //      cli/hexa-cosmos.hexa. Selftest output captured; non-PASS = warn-only.
 //
-// raw#9 hexa-only, raw#11 snake_case, raw#15 no-hardcode.
-// raw#10 honest C3: see hexa-cosmos/README.md "Status" section.
 
 fn run_quick_selftest(root: str) -> bool {
     let cli = root + "/cli/hexa-cosmos.hexa"
