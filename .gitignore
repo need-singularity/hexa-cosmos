@@ -17,4 +17,5 @@ state/
 .env.local
 
 # .claude harness scratch
-.claude/
+.claude/*
+!.claude/skills/
